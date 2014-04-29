@@ -1,4 +1,4 @@
-scrips
+Scripts
 ==============
 
 Addons and experiments for Blender
