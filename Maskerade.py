@@ -114,7 +114,7 @@ class SelectMask(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         space = context.space_data
-        return space.type == 'NODE_EDITOR'
+        return space.type == 'NODE_EDITOR' and space.tree_type == 'CompositorNodeTree'
 
     def execute(self, context):
         select_mask()        
@@ -130,7 +130,7 @@ class AddMask(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         space = context.space_data
-        return space.type == 'NODE_EDITOR'
+        return space.type == 'NODE_EDITOR' and space.tree_type == 'CompositorNodeTree'
 
     def execute(self, context):
         add_mask()        
