@@ -131,7 +131,6 @@ def register():
     bpy.utils.register_class(CLIP_marker_pie)
     bpy.utils.register_class(CLIP_reconstruction_pie)
     bpy.utils.register_class(CLIP_clipsetup_pie)
-    bpy.utils.register_class(MY_TestPieClass)
 
 
     wm = bpy.context.window_manager
@@ -150,8 +149,10 @@ def unregister():
     bpy.utils.unregister_class(CLIP_marker_pie)
     bpy.utils.unregister_class(CLIP_clipsetup_pie)
     bpy.utils.unregister_class(CLIP_reconstruction_pie)
-    bpy.utils.unregister_class(MY_TestPieClass)
 
+
+
+    
 
 if __name__ == "__main__":
     register()
