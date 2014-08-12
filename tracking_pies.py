@@ -1,3 +1,17 @@
+bl_info = {
+"name": "Tracking Pies",
+"author": "Sebastian Koenig",
+"version": (1, 0),
+"blender": (2, 7, 2),
+"location": "Clip Editor > Masking Pies",
+"description": "Pie Controls for Tracking",
+"warning": "",
+"wiki_url": "",
+"tracker_url": "",
+"category": "Compositing"}
+
+
+
 import bpy
 from bpy.types import Menu
 
