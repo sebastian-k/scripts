@@ -129,6 +129,25 @@ class CLIP_reconstruction_pie(Menu):
         pie.operator("clip.set_axis", text="Set Y Axis", icon="AXIS_SIDE").axis="Y"
 
 
+class CLIP_timecontrol_pie(Menu):
+    # label is displayed at the center of the pie menu.
+    bl_label = "Time Control"
+    bl_idname = "clip.timecontrol_pie"
+
+    def draw(self, context):
+        layout = self.layout
+
+        pie = layout.menu_pie()
+        pie.operator("screen.animation_play", text="Playback Backwards", icon="PLAY_REVERSE").reverse=True
+        pie.operator("screen.animation_play", text="Playback Forwards", icon="PLAY").reverse=False
+        pie.operator("screen.frame_jump", text="Jump to Startframe", icon="TRIA_LEFT").end=False
+        pie.operator("screen.frame_jump", text="Jump to Endframe", icon="TRIA_RIGHT").end=True
+        pie.operator("clip.frame_jump", text="Start of Track", icon="REW").position="PATHSTART"
+        pie.operator("clip.frame_jump", text="End of Track", icon="FF").position="PATHEND"
+        pie.operator("screen.frame_offset", text="Previous Frame", icon="TRIA_LEFT").delta=-1
+        pie.operator("screen.frame_offset", text="Next Frame", icon="TRIA_RIGHT").delta=1
+
+
 
 
 
@@ -145,6 +164,7 @@ def register():
     bpy.utils.register_class(CLIP_marker_pie)
     bpy.utils.register_class(CLIP_reconstruction_pie)
     bpy.utils.register_class(CLIP_clipsetup_pie)
+    bpy.utils.register_class(CLIP_timecontrol_pie)
 
 
     wm = bpy.context.window_manager
@@ -153,6 +173,9 @@ def register():
     kmi = km.keymap_items.new('wm.call_menu_pie', 'W', 'PRESS').properties.name = "clip.clipsetup_pie"
     kmi = km.keymap_items.new('wm.call_menu_pie', 'E', 'PRESS').properties.name = "clip.tracking_pie"
     kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS', shift=True).properties.name = "clip.reconstruction_pie"
+
+    km = wm.keyconfigs.addon.keymaps.new(name='Frames')
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'A', 'PRESS', oskey=True).properties.name = "clip.timecontrol_pie"
 
 
 
@@ -163,6 +186,7 @@ def unregister():
     bpy.utils.unregister_class(CLIP_marker_pie)
     bpy.utils.unregister_class(CLIP_clipsetup_pie)
     bpy.utils.unregister_class(CLIP_reconstruction_pie)
+    bpy.utils.unregister_class(CLIP_timecontrol_pie)
 
 
 
