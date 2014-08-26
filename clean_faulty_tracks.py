@@ -23,7 +23,6 @@ from mathutils import Vector
 def filter_values(threshold, context):
 
     scene = bpy.context.scene
-
     frameStart = scene.frame_start
     frameEnd = scene.frame_end
     sc = context.space_data
@@ -45,7 +44,7 @@ def filter_values(threshold, context):
         for t in trackList:
             t.select = False        
             marker = t.markers
-            averageVelocity += 1000.0(*marker.find_frame(i).co - marker.find_frame(i-1).co)
+            averageVelocity += 1000.0*(marker.find_frame(i).co - marker.find_frame(i-1).co)
             
         averageVelocity = averageVelocity / float(len(trackList))
         
@@ -100,7 +99,6 @@ class CLIP_PT_filter_tracks(bpy.types.Panel):
         scene = context.scene
 
         layout.operator("clip.filter_tracks")
-        layout.operator("clip.track_stats")
         layout.prop(scene, "track_threshold")
 
 
