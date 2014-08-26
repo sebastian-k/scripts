@@ -1,6 +1,6 @@
 bl_info = {
 "name": "Spike Eraser",
-"author": "Sebastian Koenig",
+"author": "Sebastian Koenig, Andreas Schuster",
 "version": (1, 0),
 "blender": (2, 7, 2),
 "location": "Clip Editor > Spike Eraser",
@@ -13,90 +13,61 @@ bl_info = {
 
 
 import bpy
-import numpy
+
 from bpy.props import *
 
-
-
-
-def find_speed(track, framenumber, axisnumber):
-    # if marker has data then generate the speed
-    marker = track.markers
-
-    if not (marker.find_frame(framenumber) and marker.find_frame(framenumber+1)):
-        pass
-    else:
-        a_marker = marker.find_frame(framenumber)
-        b_marker = marker.find_frame(framenumber+1)
-        a_vector = a_marker.co[axisnumber]
-        b_vector =b_marker.co[axisnumber]
-        speed = 1000*abs((a_vector-b_vector)/(b_marker.frame-a_marker.frame))
-        return speed
-
+from mathutils import Vector
 
 
 
 def filter_values(threshold, context):
 
-    framerange = bpy.context.scene.frame_end
+    scene = bpy.context.scene
+
+    frameStart = scene.frame_start
+    frameEnd = scene.frame_end
     sc = context.space_data
     clip = sc.clip
     
+    print( frameStart, "to", frameEnd )
+    
 
     clean_up_list=[]
+    for i in range(frameStart,frameEnd):
+        
+        print("Frame: ", i)
+        
+        # get clean track list of valid tracks
+        trackList = list(filter( lambda x: (x.markers.find_frame(i) and x.markers.find_frame(i-1)), clip.tracking.tracks))
+                  
+        # get average velocity and deselect track
+        averageVelocity = Vector().to_2d()
+        for t in trackList:
+            t.select = False        
+            marker = t.markers
+            averageVelocity += 1000.0(*marker.find_frame(i).co - marker.find_frame(i-1).co)
+            
+        averageVelocity = averageVelocity / float(len(trackList))
+        
 
-    for i in range(1,framerange):
-        speedlist_x =[]
-        speedlist_y = []
-        tracklist =[]
-        speed_dict_x = {}
-        speed_dict_y = {}
-        # go over every frame and check get the average speed
+        # now compare all markers with average value and store in clean_up_list
+        for t in trackList:            
+            marker = t.markers
+            # get velocity from current track 
+            tVelocity = 1000.0*(marker.find_frame(i).co - marker.find_frame(i-1).co)
+            # create vector between current velocity and average and calc length
+            distance = (averageVelocity-tVelocity).magnitude
+            
+            # if length greater than threshold add to list
+            if distance > threshold and not t in clean_up_list:
+                print( "Add Track:" , t.name, "Average Velocity:", averageVelocity.x, averageVelocity.y, "Distance:", distance )
+                clean_up_list.append(t)
 
-        for t in clip.tracking.tracks:
-            t.select=False
-            #get the speed of each marker and append to speedlist
-          
-            speed_dict_x[t]=find_speed(t, i, 0)
-            speed_dict_y[t]=find_speed(t, i, 1)
-
-
-        # still on frame(i) we get the average speed of all markers
-        speedlist_x=speed_dict_x.values()
-        speedlist_y=speed_dict_y.values()
-        speedlist_x_clean = [x for x in speedlist_x if x is not None]
-        speedlist_y_clean = [x for x in speedlist_y if x is not None]
-
-        average_speed_x = numpy.mean(speedlist_x_clean)
-        average_speed_y = numpy.mean(speedlist_y_clean)
-
-        for track, speed in speed_dict_y.items():
-            if speed is not None:
-                if speed > average_speed_y*threshold:
-                    print(i, track, "y:", speed, "y_a:", average_speed_y)
-                    if not track in clean_up_list:
-                        clean_up_list.append(track)
-
-                    track.select = True
-
-        for track, speed in speed_dict_x.items():
-            if speed is not None:
-                if speed > average_speed_x*threshold:
-                    print(i, track, speed, average_speed_x)
-                    if not track in clean_up_list:
-                        clean_up_list.append(track)
-
-                    track.select = True
 
     for t in clean_up_list:
         t.select = True
     return (len(clean_up_list))
     
-
-
-
-
-
 
 class CLIP_OT_filter_tracks(bpy.types.Operator):
     bl_idname="clip.filter_tracks"
@@ -110,12 +81,9 @@ class CLIP_OT_filter_tracks(bpy.types.Operator):
 
     def execute(self, context):
         scn = bpy.context.scene
-        sc = context.space_data
-        clip = sc.clip
         tracks = filter_values(scn.track_threshold, context)
         self.report({"INFO"}, "Identified %d faulty tracks" % tracks)
         return {'FINISHED'}
-
 
 
 class CLIP_PT_filter_tracks(bpy.types.Panel):
@@ -132,6 +100,7 @@ class CLIP_PT_filter_tracks(bpy.types.Panel):
         scene = context.scene
 
         layout.operator("clip.filter_tracks")
+        layout.operator("clip.track_stats")
         layout.prop(scene, "track_threshold")
 
 
