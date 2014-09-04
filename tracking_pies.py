@@ -46,12 +46,23 @@ class CLIP_marker_pie(Menu):
 
 
 
-        pie.prop(active, "use_blue_channel", text="Blue Channel", icon="FILTER")
-     
-        pie.operator("clip.track_settings_as_default", icon="SETTINGS")
+        if clip.tracking.tracks.active.use_blue_channel:
+            pie.prop(active, "use_blue_channel", text="Blue Channel (ON)", icon="FILTER")
+        else:
+            pie.prop(active, "use_blue_channel", text="Blue Channel (OFF)", icon="FILTER")
 
-        pie.prop(active, "use_normalization", text="Normalization", icon="IMAGE_ALPHA")
-        pie.prop(active, "use_brute", text="Prepass", icon="FILTER")
+        
+        pie.operator("clip.track_settings_as_default", icon="SETTINGS")
+        if clip.tracking.tracks.active.use_brute:
+            pie.prop(active, "use_normalization", text="Normalization (ON)", icon="IMAGE_ALPHA")
+        else:
+            pie.prop(active, "use_normalization", text="Normalization (OFF", icon="IMAGE_ALPHA")
+
+
+        if clip.tracking.tracks.active.use_brute:
+            pie.prop(active, "use_brute", text="Prepass (ON)", icon="FILTER")
+        else:
+            pie.prop(active, "use_brute", text="Prepass (OFF)", icon="FILTER")
 
         op = pie.operator("wm.context_set_enum", text="Match Previous", icon="KEY_HLT")
         op.data_path="space_data.clip.tracking.tracks.active.pattern_match"
@@ -96,12 +107,17 @@ class CLIP_clipsetup_pie(Menu):
 
     def draw(self, context):
         layout = self.layout
+        clip = context.space_data.clip
 
         pie = layout.menu_pie()
         pie.operator("clip.reload", text="Reload Footage", icon="FILE_REFRESH")
         pie.operator("clip.prefetch", text="Prefetch Footage", icon="LOOP_FORWARDS")
         pie.prop(context.space_data, "use_mute_footage", text="Mute Footage", icon="MUTE_IPO_ON")
-        pie.prop(context.space_data.clip_user, "use_render_undistorted", text="Render Undistorted", icon="MESH_GRID")
+        if context.space_data.clip_user.use_render_undistorted:
+            pie.prop(context.space_data.clip_user, "use_render_undistorted", text="Render Undistorted (ON)", icon="MESH_GRID")
+        else:
+            pie.prop(context.space_data.clip_user, "use_render_undistorted", text="Render Undistorted (OFF)", icon="MESH_GRID")
+
         pie.prop(context.space_data, "show_names", text="Show Track Info", icon="WORDWRAP_ON")
         pie.prop(context.space_data, "lock_selection", text="Lock", icon="LOCKED")
         pie.prop(context.space_data, "show_disabled", text="Show Disabled Tracks", icon="VISIBLE_IPO_ON")
@@ -128,6 +144,27 @@ class CLIP_reconstruction_pie(Menu):
         pie.operator("clip.set_axis", text="Set X Axis", icon="AXIS_FRONT").axis="X"
         pie.operator("clip.set_axis", text="Set Y Axis", icon="AXIS_SIDE").axis="Y"
 
+class CLIP_reconstruction_specials_pie(Menu):
+    # label is displayed at the center of the pie menu.
+    bl_label = "Reconstruction Specials"
+    bl_idname = "clip.reconstruction_specials_pie"
+
+    
+
+    def draw(self, context):
+
+
+        clip = context.space_data.clip
+        settings = clip.tracking.settings
+        layout = self.layout
+
+        pie = layout.menu_pie()
+        pie.operator("clip.create_plane_track", icon="MESH_PLANE")
+        op = pie.operator("wm.context_set_enum", text="Set None", icon="OUTLINER_DATA_EMPTY")
+        op.data_path="settings.refine_intrinsics"
+        op.value="NONE"
+
+
 
 class CLIP_timecontrol_pie(Menu):
     # label is displayed at the center of the pie menu.
@@ -138,9 +175,9 @@ class CLIP_timecontrol_pie(Menu):
         layout = self.layout
 
         pie = layout.menu_pie()
-        pie.operator("screen.animation_play", text="Playback Backwards", icon="PLAY_REVERSE").reverse=True
-        pie.operator("screen.animation_play", text="Playback Forwards", icon="PLAY").reverse=False
         pie.operator("screen.frame_jump", text="Jump to Startframe", icon="TRIA_LEFT").end=False
+        pie.operator("screen.animation_play", text="Playback Forwards", icon="PLAY").reverse=False
+        pie.operator("screen.animation_play", text="Playback Backwards", icon="PLAY_REVERSE").reverse=True
         pie.operator("screen.frame_jump", text="Jump to Endframe", icon="TRIA_RIGHT").end=True
         pie.operator("clip.frame_jump", text="Start of Track", icon="REW").position="PATHSTART"
         pie.operator("clip.frame_jump", text="End of Track", icon="FF").position="PATHEND"
@@ -163,6 +200,7 @@ def register():
     bpy.utils.register_class(CLIP_tracking_pie)
     bpy.utils.register_class(CLIP_marker_pie)
     bpy.utils.register_class(CLIP_reconstruction_pie)
+    bpy.utils.register_class(CLIP_reconstruction_specials_pie)
     bpy.utils.register_class(CLIP_clipsetup_pie)
     bpy.utils.register_class(CLIP_timecontrol_pie)
 
@@ -173,9 +211,10 @@ def register():
     kmi = km.keymap_items.new('wm.call_menu_pie', 'W', 'PRESS').properties.name = "clip.clipsetup_pie"
     kmi = km.keymap_items.new('wm.call_menu_pie', 'E', 'PRESS').properties.name = "clip.tracking_pie"
     kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS', shift=True).properties.name = "clip.reconstruction_pie"
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS', shift=True, alt=True).properties.name = "clip.reconstruction_specials_pie"
 
     km = wm.keyconfigs.addon.keymaps.new(name='Frames')
-    kmi = km.keymap_items.new('wm.call_menu_pie', 'A', 'PRESS', oskey=True).properties.name = "clip.timecontrol_pie"
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'A', 'PRESS', ctrl=True).properties.name = "clip.timecontrol_pie"
 
 
 
@@ -186,6 +225,7 @@ def unregister():
     bpy.utils.unregister_class(CLIP_marker_pie)
     bpy.utils.unregister_class(CLIP_clipsetup_pie)
     bpy.utils.unregister_class(CLIP_reconstruction_pie)
+    bpy.utils.unregister_class(CLIP_reconstruction_specials_pie)
     bpy.utils.unregister_class(CLIP_timecontrol_pie)
 
 
