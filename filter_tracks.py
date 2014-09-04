@@ -1,5 +1,5 @@
 bl_info = {
-"name": "Spike Eraser",
+"name": "Filter Tracks",
 "author": "Sebastian Koenig, Andreas Schuster",
 "version": (1, 0),
 "blender": (2, 7, 2),
