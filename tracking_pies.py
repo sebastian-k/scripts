@@ -8,8 +8,18 @@ bl_info = {
 "warning": "",
 "wiki_url": "",
 "tracker_url": "",
-"category": "Compositing"}
+"category": "Movie Tracking"}
 
+'''
+This script adds tracking pies to the clip editor.
+Hotkeys:
+Q:      Marker Setup
+W:      Setup Clip and Display options
+E:      Tracking commands
+Shift+S: Solving  
+Shift+W: Scene Reconstruction
+OSkey+A: Playback and frame jumping commands
+'''
 
 
 import bpy
