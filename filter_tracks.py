@@ -1,14 +1,14 @@
 bl_info = {
-"name": "Filter Tracks",
+"name": "Spike Eraser",
 "author": "Sebastian Koenig, Andreas Schuster",
 "version": (1, 0),
 "blender": (2, 7, 2),
-"location": "Clip Editor > Spike Eraser",
+"location": "Clip Editor > Filter Tracks",
 "description": "Filter out spikes in tracker curves",
 "warning": "",
 "wiki_url": "",
 "tracker_url": "",
-"category": "Tracking"}
+"category": "Movie Tracking"}
 
 
 
@@ -18,6 +18,19 @@ from bpy.props import *
 
 from mathutils import Vector
 
+def denormalized_vector(context, t, i):
+
+    sc = context.space_data
+    clip = sc.clip
+    width=clip.size[0]
+    height=clip.size[1]
+
+
+    marker = t.markers
+    marker_x = marker.find_frame(i).co[0]*width
+    marker_y = marker.find_frame(i).co[1]*height
+    real_vector = Vector((marker_x, marker_y))
+    return real_vector
 
 
 def filter_values(threshold, context):
@@ -27,8 +40,19 @@ def filter_values(threshold, context):
     frameEnd = scene.frame_end
     sc = context.space_data
     clip = sc.clip
+    length =clip.frame_duration
+    width=clip.size[0]
+    height=clip.size[1]
+    size_vector = Vector((width, height))
+    print(size_vector)
+
     
     print( frameStart, "to", frameEnd )
+    print(length)
+
+    
+    
+    bpy.ops.clip.clean_tracks(frames=10, action='DELETE_TRACK')
     
 
     clean_up_list=[]
@@ -40,26 +64,33 @@ def filter_values(threshold, context):
         trackList = list(filter( lambda x: (x.markers.find_frame(i) and x.markers.find_frame(i-1)), clip.tracking.tracks))
                   
         # get average velocity and deselect track
+        #averageVelocityVector = Vector()
         averageVelocity = Vector().to_2d()
         for t in trackList:
-            t.select = False        
-            marker = t.markers
-            averageVelocity += 1000.0*(marker.find_frame(i).co - marker.find_frame(i-1).co)
-            
-        averageVelocity = averageVelocity / float(len(trackList))
+            t.select = False
+            m_a = denormalized_vector(context, t,i)   
+            m_b = denormalized_vector(context, t,i-1)  
+            averageVelocity += m_a - m_b
+        tracklist_length = float(len(trackList))
+        if tracklist_length != 0.0: 
+            averageVelocity = averageVelocity / tracklist_length
         
-
+        print(averageVelocity.magnitude)
         # now compare all markers with average value and store in clean_up_list
         for t in trackList:            
             marker = t.markers
             # get velocity from current track 
-            tVelocity = 1000.0*(marker.find_frame(i).co - marker.find_frame(i-1).co)
+            m_a = denormalized_vector(context, t,i)   
+            m_b = denormalized_vector(context, t,i-1)
+            tVelocity = m_a - m_b
             # create vector between current velocity and average and calc length
+            #print("MarkerSpeed:", tVelocity.magnitude, "AverageSpeed:", averageVelocity.magnitude)
             distance = (averageVelocity-tVelocity).magnitude
+            #print(tracklist_length, averageVelocity.magnitude, tVelocity.magnitude, distance)
             
             # if length greater than threshold add to list
             if distance > threshold and not t in clean_up_list:
-                print( "Add Track:" , t.name, "Average Velocity:", averageVelocity.x, averageVelocity.y, "Distance:", distance )
+                print( "Add Track:" , t.name, "Average Velocity:", averageVelocity.magnitude, "Distance:", distance )
                 clean_up_list.append(t)
 
 
