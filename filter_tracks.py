@@ -16,14 +16,14 @@ from bpy.props import *
 from mathutils import Vector
 
 def log(*args):
-  print ' '.join(map(str, args))
+  print(' '.join(map(str, args)))
 
 def get_marker_coordinates_in_pixels(context, track, frame_number):
     width, height = context.space_data.clip.size
     marker = track.markers.find_frame(frame_number)
     return Vector((marker.co[0] * width, marker.co[1] * height))
 
-def marker_velocity(context, track, frame1, frame2):
+def marker_velocity(context, track, frame):
     marker_a = get_marker_coordinates_in_pixels(context, track, frame)   
     marker_b = get_marker_coordinates_in_pixels(context, track, frame - 1)  
     return marker_a - marker_b
@@ -59,15 +59,20 @@ def filter_values(threshold, context):
         average_velocity = Vector().to_2d()
         for track in relevant_tracks:
             track.select = False
-            average_velocity += marker_velocity(context, track, frame, frame - 1)
+            average_velocity += marker_velocity(context, track, frame)
         average_velocity = average_velocity / float(len(relevant_tracks))
         
         log('Average velocity', average_velocity.magnitude)
 
         # Then find all markers that behave differently than the average.
         for track in relevant_tracks:            
-            track_velocity = marker_velocity(context, track, frame, frame - 1)
+            track_velocity = marker_velocity(context, track, frame)
             distance = (average_velocity - track_velocity).magnitude
+
+            # TODO: find a way to exclude foreground markers. something like:
+            # if markers are part of the tracks_to_clean list but move very similarly, 
+            # they are no spikes, but fast moving foreground markers and should be excluded.
+
             if distance > threshold and not track in tracks_to_clean:
                 log('To clean:' , track.name,
                     ', average velocity:', average_velocity.magnitude,
