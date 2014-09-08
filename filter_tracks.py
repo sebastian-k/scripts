@@ -1,103 +1,82 @@
 bl_info = {
-"name": "Filter Tracks",
-"author": "Sebastian Koenig, Andreas Schuster",
-"version": (1, 0),
-"blender": (2, 7, 2),
-"location": "Clip Editor > Filter Tracks",
-"description": "Filter out spikes in tracker curves",
-"warning": "",
-"wiki_url": "",
-"tracker_url": "",
-"category": "Movie Tracking"}
-
-
+  "name": "Filter Tracks",
+  "author": "Sebastian Koenig, Andreas Schuster",
+  "version": (1, 0),
+  "blender": (2, 7, 2),
+  "location": "Clip Editor > Filter Tracks",
+  "description": "Filter out spikes in tracker curves",
+  "warning": "",
+  "wiki_url": "",
+  "tracker_url": "",
+  "category": "Movie Tracking"
+  }
 
 import bpy
-
 from bpy.props import *
-
 from mathutils import Vector
 
-def denormalized_vector(context, t, i):
+def log(*args):
+  print ' '.join(map(str, args))
 
-    sc = context.space_data
-    clip = sc.clip
-    width=clip.size[0]
-    height=clip.size[1]
+def get_marker_coordinates_in_pixels(context, track, frame_number):
+    width, height = context.space_data.clip.size
+    marker = track.markers.find_frame(frame_number)
+    return Vector((marker.co[0] * width, marker.co[1] * height))
 
-
-    marker = t.markers
-    marker_x = marker.find_frame(i).co[0]*width
-    marker_y = marker.find_frame(i).co[1]*height
-    real_vector = Vector((marker_x, marker_y))
-    return real_vector
-
+def marker_velocity(context, track, frame1, frame2):
+    marker_a = get_marker_coordinates_in_pixels(context, track, frame)   
+    marker_b = get_marker_coordinates_in_pixels(context, track, frame - 1)  
+    return marker_a - marker_b
 
 def filter_values(threshold, context):
-
     scene = bpy.context.scene
-    frameStart = scene.frame_start
-    frameEnd = scene.frame_end
-    sc = context.space_data
-    clip = sc.clip
-    length =clip.frame_duration
-    width=clip.size[0]
-    height=clip.size[1]
-    size_vector = Vector((width, height))
-    print(size_vector)
-
-    
-    print( frameStart, "to", frameEnd )
-    print(length)
-
-    
+    frame_start = scene.frame_start
+    frame_end = scene.frame_end
+    clip = context.space_data.clip
+    length = clip.frame_duration
+    width, height = clip.size
+    log('Clip size:', Vector((width, height)))
+    log('Clean from frame', frame_start, 'to', frame_end, ';', length, 'frames')
     
     bpy.ops.clip.clean_tracks(frames=10, action='DELETE_TRACK')
-    
 
-    clean_up_list=[]
-    for i in range(frameStart,frameEnd):
+    tracks_to_clean = []
+
+    for frame in range(frame_start, frame_end):
+        log('Frame: ', frame)
+        # TODO(sebastian_k): What about frame_start = 0?
         
-        print("Frame: ", i)
-        
-        # get clean track list of valid tracks
-        trackList = list(filter( lambda x: (x.markers.find_frame(i) and x.markers.find_frame(i-1)), clip.tracking.tracks))
+        # Find tracks with markers in both this frame and the previous one.
+        relevant_tracks = [track for track in clip.tracking.tracks
+                           if track.markers.find_frame(frame) and
+                              track.markers.find_frame(frame - 1)]
+
+        if not relevant_tracks:
+            log('Skipping frame; no tracks with markers in this and the previous frame')
+            continue
                   
-        # get average velocity and deselect track
-        #averageVelocityVector = Vector()
-        averageVelocity = Vector().to_2d()
-        for t in trackList:
-            t.select = False
-            m_a = denormalized_vector(context, t,i)   
-            m_b = denormalized_vector(context, t,i-1)  
-            averageVelocity += m_a - m_b
-        tracklist_length = float(len(trackList))
-        if tracklist_length != 0.0: 
-            averageVelocity = averageVelocity / tracklist_length
+        # Get average velocity and deselect track.
+        average_velocity = Vector().to_2d()
+        for track in relevant_tracks:
+            track.select = False
+            average_velocity += marker_velocity(context, track, frame, frame - 1)
+        average_velocity = average_velocity / float(len(relevant_tracks))
         
-        print(averageVelocity.magnitude)
-        # now compare all markers with average value and store in clean_up_list
-        for t in trackList:            
-            marker = t.markers
-            # get velocity from current track 
-            m_a = denormalized_vector(context, t,i)   
-            m_b = denormalized_vector(context, t,i-1)
-            tVelocity = m_a - m_b
-            # create vector between current velocity and average and calc length
-            #print("MarkerSpeed:", tVelocity.magnitude, "AverageSpeed:", averageVelocity.magnitude)
-            distance = (averageVelocity-tVelocity).magnitude
-            #print(tracklist_length, averageVelocity.magnitude, tVelocity.magnitude, distance)
-            
-            # if length greater than threshold add to list
-            if distance > threshold and not t in clean_up_list:
-                print( "Add Track:" , t.name, "Average Velocity:", averageVelocity.magnitude, "Distance:", distance )
-                clean_up_list.append(t)
+        log('Average velocity', average_velocity.magnitude)
 
+        # Then find all markers that behave differently than the average.
+        for track in relevant_tracks:            
+            track_velocity = marker_velocity(context, track, frame, frame - 1)
+            distance = (average_velocity - track_velocity).magnitude
+            if distance > threshold and not track in tracks_to_clean:
+                log('To clean:' , track.name,
+                    ', average velocity:', average_velocity.magnitude,
+                    'distance:', distance)
+                tracks_to_clean.append(track)
 
-    for t in clean_up_list:
-        t.select = True
-    return (len(clean_up_list))
-    
+    for track in tracks_to_clean:
+        track.select = True
+    return len(tracks_to_clean)
 
 class CLIP_OT_filter_tracks(bpy.types.Operator):
     bl_idname="clip.filter_tracks"
@@ -108,13 +87,10 @@ class CLIP_OT_filter_tracks(bpy.types.Operator):
         sc = context.space_data
         return (sc.type == 'CLIP_EDITOR') and sc.clip
 
-
     def execute(self, context):
-        scn = bpy.context.scene
-        tracks = filter_values(scn.track_threshold, context)
-        self.report({"INFO"}, "Identified %d faulty tracks" % tracks)
+        num_tracks = filter_values(bpy.context.scene.track_threshold, context)
+        self.report({"INFO"}, "Identified %d faulty tracks" % num_tracks)
         return {'FINISHED'}
-
 
 class CLIP_PT_filter_tracks(bpy.types.Panel):
     bl_idname = "clip.filter_track_panel"
@@ -123,8 +99,6 @@ class CLIP_PT_filter_tracks(bpy.types.Panel):
     bl_region_type = "TOOLS"
     bl_category = "Track"
 
-    
-
     def draw(self, context):
         layout = self.layout
         scene = context.scene
@@ -132,12 +106,7 @@ class CLIP_PT_filter_tracks(bpy.types.Panel):
         layout.operator("clip.filter_tracks")
         layout.prop(scene, "track_threshold")
 
-
-
-
-
 def register():
-
     bpy.utils.register_class(CLIP_OT_filter_tracks)
     bpy.utils.register_class(CLIP_PT_filter_tracks)
     bpy.types.Scene.track_threshold = bpy.props.FloatProperty \
@@ -147,11 +116,9 @@ def register():
         default = 5.0
       )
 
-
 def unregister():
     bpy.utils.unregister_class(CLIP_OT_filter_tracks)
     bpy.utils.unregister_class(CLIP_PT_filter_tracks)
-
 
 if __name__ == "__main__":
     register()
