@@ -199,10 +199,10 @@ def register():
     wm = bpy.context.window_manager
     
     km = wm.keyconfigs.addon.keymaps.new(name = 'Object Mode')
-    kmi = km.keymap_items.new('wm.call_menu_pie', 'C', 'PRESS').properties.name = "object.snapping_pie"
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS', shift=True).properties.name = "object.snapping_pie"
 
     km = wm.keyconfigs.addon.keymaps.new(name = 'Mesh')
-    kmi = km.keymap_items.new('wm.call_menu_pie', 'C', 'PRESS').properties.name = "object.snapping_pie"
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS',shift=True).properties.name = "object.snapping_pie"
 
 
 
