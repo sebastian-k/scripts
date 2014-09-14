@@ -16,7 +16,7 @@ from bpy.props import *
 from mathutils import Vector
 
 def log(*args):
-  print(' '.join(map(str, args)))
+  print(''.join(map(str, args)))
 
 def get_marker_coordinates_in_pixels(context, track, frame_number):
     width, height = context.space_data.clip.size
@@ -24,8 +24,8 @@ def get_marker_coordinates_in_pixels(context, track, frame_number):
     return Vector((marker.co[0] * width, marker.co[1] * height))
 
 def marker_velocity(context, track, frame):
-    marker_a = get_marker_coordinates_in_pixels(context, track, frame)   
-    marker_b = get_marker_coordinates_in_pixels(context, track, frame - 1)  
+    marker_a = get_marker_coordinates_in_pixels(context, track, frame)
+    marker_b = get_marker_coordinates_in_pixels(context, track, frame - 1)
     return marker_a - marker_b
 
 def filter_values(threshold, context):
@@ -37,7 +37,7 @@ def filter_values(threshold, context):
     width, height = clip.size
     log('Clip size:', Vector((width, height)))
     log('Clean from frame', frame_start, 'to', frame_end, ';', length, 'frames')
-    
+
     bpy.ops.clip.clean_tracks(frames=10, action='DELETE_TRACK')
 
     tracks_to_clean = []
@@ -45,32 +45,32 @@ def filter_values(threshold, context):
     for frame in range(frame_start, frame_end):
         log('Frame: ', frame)
         # TODO(sebastian_k): What about frame_start = 0?
-        
+
         # Find tracks with markers in both this frame and the previous one.
         relevant_tracks = [track for track in clip.tracking.tracks
                            if track.markers.find_frame(frame) and
                               track.markers.find_frame(frame - 1)]
 
         if not relevant_tracks:
-            log('Skipping frame; no tracks with markers in this and the previous frame')
+            # log('Skipping frame; no tracks with markers in this and the previous frame')
             continue
-                  
+
         # Get average velocity and deselect track.
         average_velocity = Vector().to_2d()
         for track in relevant_tracks:
             track.select = False
             average_velocity += marker_velocity(context, track, frame)
         average_velocity = average_velocity / float(len(relevant_tracks))
-        
-        log('Average velocity', average_velocity.magnitude)
+
+        # log('Average velocity', average_velocity.magnitude)
 
         # Then find all markers that behave differently than the average.
-        for track in relevant_tracks:            
+        for track in relevant_tracks:
             track_velocity = marker_velocity(context, track, frame)
             distance = (average_velocity - track_velocity).magnitude
 
             # TODO: find a way to exclude foreground markers. something like:
-            # if markers are part of the tracks_to_clean list but move very similarly, 
+            # if markers are part of the tracks_to_clean list but move very similarly,
             # they are no spikes, but fast moving foreground markers and should be excluded.
 
             if distance > threshold and not track in tracks_to_clean:
@@ -99,7 +99,7 @@ class CLIP_OT_filter_tracks(bpy.types.Operator):
 
 class CLIP_PT_filter_tracks(bpy.types.Panel):
     bl_idname = "clip.filter_track_panel"
-    bl_label = "Filter Tracks"  
+    bl_label = "Filter Tracks"
     bl_space_type = "CLIP_EDITOR"
     bl_region_type = "TOOLS"
     bl_category = "Track"
