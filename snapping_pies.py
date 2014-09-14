@@ -8,10 +8,8 @@ bl_info = {
 
 
 
-
 import bpy
 from bpy.types import Menu
-
 
 
 ###### FUNTIONS ##########
@@ -25,6 +23,7 @@ def origin_to_selection(context):
         bpy.ops.object.mode_set(mode="OBJECT")
         bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
         context.scene.cursor_location = saved_location
+
 
 def origin_to_geometry(context):
     context = bpy.context
@@ -50,6 +49,7 @@ class VIEW3D_OT_origin_to_selected(bpy.types.Operator):
         origin_to_selection(context)
         return {'FINISHED'}
 
+
 class VIEW3D_OT_origin_to_geometry(bpy.types.Operator):
     bl_idname="object.origin_to_geometry"
     bl_label="Origin to Geometry"
@@ -64,18 +64,17 @@ class VIEW3D_OT_origin_to_geometry(bpy.types.Operator):
         return {'FINISHED'}
 
 
-
 #Menu Snap Target
 class VIEW3D_OT_SnapTargetMenu(Menu):
     bl_idname = "snap.targetmenu"
     bl_label = "Snap Target Menu"
 
     def draw(self, context):
-        layout = self.layout       
-        
+        layout = self.layout
+
         layout.operator("object.snaptargetvariable", text="Active").variable='ACTIVE'
         layout.operator("object.snaptargetvariable", text="Median").variable='MEDIAN'
-        layout.operator("object.snaptargetvariable", text="Center").variable='CENTER' 
+        layout.operator("object.snaptargetvariable", text="Center").variable='CENTER'
         layout.operator("object.snaptargetvariable", text="Closest").variable='CLOSEST'
 
 
@@ -91,7 +90,7 @@ class VIEW3D_OT_SnapTargetVariable(bpy.types.Operator):
 
     def execute(self, context):
         bpy.context.scene.tool_settings.snap_target=self.variable
-        return {'FINISHED'} 
+        return {'FINISHED'}
 
 
 #Menu Snap Element
@@ -101,13 +100,14 @@ class VIEW3D_OT_SnapElementMenu(Menu):
     settings = bpy.context.scene.tool_settings
 
     def draw(self, context):
-        layout = self.layout       
-         
+        layout = self.layout
+
         layout.operator("object.snapelementvariable", text="Vertex").variable='VERTEX'
         layout.operator("object.snapelementvariable", text="Edge").variable='EDGE'
         layout.operator("object.snapelementvariable", text="Face").variable='FACE'
         layout.operator("object.snapelementvariable", text="Increment").variable='INCREMENT'
         layout.operator("object.snapelementvariable", text="Volume").variable='VOLUME'
+
 
 class VIEW3D_OT_SnapElementVariable(bpy.types.Operator):
     bl_idname = "object.snapelementvariable"
@@ -120,8 +120,7 @@ class VIEW3D_OT_SnapElementVariable(bpy.types.Operator):
 
     def execute(self, context):
         bpy.context.scene.tool_settings.snap_element=self.variable
-        return {'FINISHED'} 
-
+        return {'FINISHED'}
 
 
 ################### PIES #####################
@@ -137,7 +136,7 @@ class VIEW3D_PIE_origin(Menu):
         tool_settings = context.scene.tool_settings
 
         pie = layout.menu_pie()
-        
+
         pie.operator("view3d.snap_selected_to_cursor", icon="CURSOR")
         pie.operator("view3d.snap_cursor_to_selected", icon="CLIPUV_HLT")
 
@@ -151,17 +150,16 @@ class VIEW3D_PIE_origin(Menu):
         #op = pie.operator("wm.context_set_enum", text="Edge Snapping", icon="SNAP_EDGE")
         #op.data_path="tool_settings.snap_element"
         #op.value="EDGE"
-        
+
 
         if context.object.mode == "OBJECT":
             pie.operator("object.origin_set",icon="MESH_CUBE", text="Origin to Geometry").type="ORIGIN_GEOMETRY"
         else:
             pie.operator("object.origin_to_geometry", icon="MESH_CUBE")
-      
-        pie.operator("view3d.snap_cursor_to_center", icon="CURSOR")
-        
 
-        
+        pie.operator("view3d.snap_cursor_to_center", icon="CURSOR")
+
+
         if tool_settings.snap_element=="VERTEX":
             pie.menu("snap.snapelementmenu", text="Snap Element", icon="SNAP_VERTEX")
         elif tool_settings.snap_element=="EDGE":
@@ -179,9 +177,7 @@ class VIEW3D_PIE_origin(Menu):
             pie.prop(context.scene.tool_settings, "use_snap", text="Use Snap(OFF)")
 
         pie.menu("snap.targetmenu", text="Snap Target", icon='SNAP_SURFACE')
-     
 
-      
 
 
 ########## REGISTER ############
@@ -194,10 +190,10 @@ def register():
     bpy.utils.register_class(VIEW3D_OT_SnapTargetVariable)
     bpy.utils.register_class(VIEW3D_OT_SnapElementVariable)
     bpy.utils.register_class(VIEW3D_OT_SnapElementMenu)
-    
+
 
     wm = bpy.context.window_manager
-    
+
     km = wm.keyconfigs.addon.keymaps.new(name = 'Object Mode')
     kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS', shift=True).properties.name = "object.snapping_pie"
 
@@ -208,7 +204,7 @@ def register():
 
 
 def unregister():
-   
+
     bpy.utils.unregister_class(VIEW3D_PIE_origin)
     bpy.utils.unregister_class(VIEW3D_OT_origin_to_selected)
     bpy.utils.unregister_class(VIEW3D_OT_origin_to_geometry)
