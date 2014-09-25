@@ -1,7 +1,25 @@
 import bpy 
 
+'''
+2 opertators
+1. first extract the texture by baking to cleanplate
+2. then prepare for painting
+
+1.1: Prepare the UVs and mesh
+1.2: Create material with clip as image for projection with projection Uv uv_layer
+1.3: make UVMap active
+1.4: Create the cleanplate image
+1.5: bake
+
+2.1: Check if uvs exist. if not, create and prepare mesh
+2.2: Check if cleanplate image exists. if not, create. create material with cleanplate as input
+2.3: make UVMap active
+2.4: Prepare painting
+
+3. Save image in UI
 
 
+'''
 def cleanplate_preparator(context, ob, size, canvas, clip):
     # prepare the object as cleanplate
     me = ob.data
@@ -106,52 +124,64 @@ def set_cleanplate_material_cycles(context, object):
     pass
 
 
-def set_cleanplate_material_internal(context, ob):
+def set_cleanplate_material_internal(context, ob, clip, clean_name):
 
-    clean_name="cleanplate"
+    # create projection texture
+    proj_tex = "projected_texture"
+ 
+    if not bpy.data.textures.get(proj_tex):
+        tex_proj = bpy.data.textures.new(name=proj_tex, type='IMAGE')
+    else: 
+        tex_proj = bpy.data.textures[proj_tex]
 
-    # create texture
+    # create cleaned texture
     if not bpy.data.textures.get(clean_name):
         tex = bpy.data.textures.new(name=clean_name, type='IMAGE')
     else: 
         tex = bpy.data.textures[clean_name]
+
     # create material
     if not bpy.data.materials.get(clean_name):
         mat = bpy.data.materials.new(clean_name)
     else:
         mat = bpy.data.materials[clean_name]
 
-    tex.image=bpy.data.images[clean_name]
+    tex_proj.image=bpy.data.images[clip.name]
     found = False
     for m in mat.texture_slots:
-        if m and m.texture == tex:
+        if m and m.texture == tex_proj:
             found = True
             break
     if not found and mat:
         mtex = mat.texture_slots.add()
         mtex.texture = tex
         mtex.texture_coords = 'UV'
+        mtex.uv_layer = 'projection'
         mtex.use_map_color_diffuse = True
 
+
     mat.use_shadeless=True
-    mat.texture_slots
     if not ob.material_slots.get(mat.name):
         ob.data.materials.append(mat)
     else:
         ob.material_slots[0].material = mat
 
 
+
+
 def assemble_cleanplate_setup(context):
     clip = context.scene.active_clip
     cleaned_object = context.active_object
 
+    clean_name = "cleanplate"
+
     # extract texture: bake internal and use as paint image
 
     # create a canvas to paint and bake on
-    if not bpy.data.images.get("cleanplate"):
-        canvas = bpy.data.images.new("cleanplate", size, size)
+    if not bpy.data.images.get(clean_name):
+        canvas = bpy.data.images.new(clean_name, size, size)
     else:
-        canvas=bpy.data.images["cleanplate"]
+        canvas=bpy.data.images[clean_name]
 
   
     # create BI material
@@ -161,9 +191,13 @@ def assemble_cleanplate_setup(context):
     # set background image to image
     # set texture paint setup
     cleanplate_preparator(context, cleaned_object, 2048, canvas, clip)
+   
     change_viewport_background_for_painting(context, clip)
+   
     set_cleanplate_brush(context,clip, canvas)
-    set_cleanplate_material_internal(context, cleaned_object)
+   
+    set_cleanplate_material_internal(context, cleaned_object, clip, clean_name)
+   
     bake_extract_texture(context, cleaned_object)
     
 
