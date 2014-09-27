@@ -52,13 +52,13 @@ def configure_video_image(context, clip, image):
     image.frame_offset = clip.frame_offset
 
 
-def prepare_clean_bake_mat(context, ob, clip, size):
+def prepare_clean_bake_mat(context, ob, clip, size, movietype):
     projection_tex = "projected texture"
     projection_mat = "projected clip material"
 
     # create texture if needed and assign
     if not bpy.data.textures.get(projection_tex):
-        bpy.data.textures.new(name=projection_tex, type='IMAGE')
+        bpy.data.textures.new(name=projection_tex, type="IMAGE")
     tex = bpy.data.textures[projection_tex]
 
     # create image if needed
@@ -68,7 +68,7 @@ def prepare_clean_bake_mat(context, ob, clip, size):
     # assign image to texture
     tex.image = bpy.data.images[clip.name]
     tex.image.filepath=clip.filepath
-    tex.image.source="MOVIE"
+    tex.image.source=movietype
 
     # configure the image
     configure_video_image(context, clip, tex.image_user)
@@ -101,7 +101,7 @@ def ma_baker(context):
     bpy.ops.object.bake_image()
 
 
-def set_baked_mat(context, ob, clip, canvas):
+def set_baked_mat(context, ob, clip, canvas, movietype):
     suffix = "_" + ob.name
     clean_tex = "clean_texture" + suffix
     clean_mat = "clean_material" + suffix
@@ -109,7 +109,7 @@ def set_baked_mat(context, ob, clip, canvas):
     # create texture if needed and assign
     
     if not bpy.data.textures.get(clean_tex):
-        bpy.data.textures.new(name=clean_tex, type='IMAGE')
+        bpy.data.textures.new(name=clean_tex, type="IMAGE")
     tex = bpy.data.textures[clean_tex]
 
     # assign image to texture
@@ -123,7 +123,7 @@ def set_baked_mat(context, ob, clip, canvas):
         mat.use_shadeless=True
 
         mtex=mat.texture_slots.add()
-        mtex.texture = tex
+        mtex.texture = texture
         mtex.texture_coords = 'UV'
         mtex.uv_layer = 'UVMap'
         mtex.use_map_color_diffuse = True
@@ -139,7 +139,7 @@ def set_baked_mat(context, ob, clip, canvas):
 
 class VIEW3D_texture_extraction_setup(bpy.types.Operator):
     bl_idname="object.texture_extraction_setup"
-    bl_label="Texture Extracto"
+    bl_label="Texture Extractor"
 
     def execute(self, context):
         clip = context.scene.active_clip
@@ -147,6 +147,7 @@ class VIEW3D_texture_extraction_setup(bpy.types.Operator):
 
         clean_name = "cleanplate" + "_" + cleaned_object.name
         size = 2048
+        movietype = clip.source
 
         # create a canvas to paint and bake on
         if not bpy.data.images.get(clean_name):
@@ -156,10 +157,14 @@ class VIEW3D_texture_extraction_setup(bpy.types.Operator):
 
         prepare_mesh(context, cleaned_object, size, canvas, clip)
 
-        prepare_clean_bake_mat(context, cleaned_object, clip, size)
+        prepare_clean_bake_mat(context, cleaned_object, clip, size, movietype)
 
         ma_baker(context)
-        set_baked_mat(context, cleaned_object, clip, canvas)
+
+        set_baked_mat(context, cleaned_object, clip, canvas, movietype)
+        
+        context.space_data.show_textured_solid = True
+        
         return{"FINISHED"}
 
 
