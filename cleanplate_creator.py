@@ -1,7 +1,7 @@
 import bpy
 
 
-##### Corner Pin Cre
+##### Corner Pin Creator ######
 
 def get_track_empties(context, tracks):
     # the selected empties are assumed to be the linked tracks
@@ -40,11 +40,13 @@ def create_hook_empties(context, tracks, hooks):
     bpy.ops.object.select_all(action='DESELECT')
 
 
+
 def get_location(hooks):
     coords=[]
     for h in hooks:
         coords.append(h.location*h.matrix_world)
     return coords
+
 
 
 def create_canvas_object(context, name, hooks, cleanobject, cams):
@@ -109,6 +111,7 @@ def hook_em_up(hooks, ob):
     bpy.ops.object.mode_set(mode = 'OBJECT')
 
 
+
 def hooker_cam(context, cams):
 
     for ob in bpy.data.objects:
@@ -118,10 +121,15 @@ def hooker_cam(context, cams):
     camera.rotation_euler=(1.570796251296997, -0.0, 0.0)
     camera.location = (0,-8,2.2)
 
+
+
 def setup_scene(context):
     scene = context.scene
     scene.active_clip = context.space_data.clip
 
+
+
+####### TEXTURE PROJECTION FUNCTIONS ###########
 
 def prepare_mesh(context, ob, size, canvas, clip):
 
@@ -173,11 +181,11 @@ def prepare_mesh(context, ob, size, canvas, clip):
             projector.uv_layer="projection"
 
 
+
 def change_viewport_background_for_painting(context, clip):
     # prepare the viewport for painting
     # changing from movie to image will make it updates.
     space = context.space_data
-
 
     for img in space.background_images:
         if img.source == 'MOVIE_CLIP':
@@ -194,10 +202,11 @@ def change_viewport_background_for_painting(context, clip):
             img.show_on_foreground = True
             img.source = "IMAGE"
             img.image=clipimage
-
+            img.image.colorspace_settings.name=clip.colorspace_settings.name
             backimg = img.image_user
 
             configure_video_image(context, clip, backimg)
+
 
 
 def set_cleanplate_brush(context, clip, canvas, ob):
@@ -215,12 +224,14 @@ def set_cleanplate_brush(context, clip, canvas, ob):
     me.uv_texture_clone = me.uv_textures.get("projection")
 
 
+
 def configure_video_image(context, clip, image):
     # prepare an image that uses the same parameters as the movievclip
     image.use_auto_refresh=True
     image.frame_duration = clip.frame_duration
     image.frame_start = clip.frame_start
     image.frame_offset = clip.frame_offset
+
 
 
 def prepare_clean_bake_mat(context, ob, clip, size, movietype):
@@ -240,6 +251,7 @@ def prepare_clean_bake_mat(context, ob, clip, size, movietype):
     tex.image = bpy.data.images[clip.name]
     tex.image.filepath=clip.filepath
     tex.image.source=movietype
+    tex.image.colorspace_settings.name=clip.colorspace_settings.name
 
     # configure the image
     configure_video_image(context, clip, tex.image_user)
@@ -259,7 +271,6 @@ def prepare_clean_bake_mat(context, ob, clip, size, movietype):
             mtex.uv_layer = 'projection'
             mtex.use_map_color_diffuse = True
 
-
     # assign the material to material slot 0 of ob
     if not len(list(ob.material_slots)) > 0:
         ob.data.materials.append(mat)
@@ -267,9 +278,11 @@ def prepare_clean_bake_mat(context, ob, clip, size, movietype):
         ob.material_slots[0].material = mat
 
 
+
 def ma_baker(context):
     bpy.context.scene.render.bake_type = 'TEXTURE'
     bpy.ops.object.bake_image()
+
 
 
 def set_baked_mat(context, ob, clip, canvas, movietype):
@@ -299,7 +312,6 @@ def set_baked_mat(context, ob, clip, canvas, movietype):
         mtex.uv_layer = 'UVMap'
         mtex.use_map_color_diffuse = True
 
-
     # assign the material to material slot 0 of ob
     if not len(list(ob.material_slots)) > 0:
         ob.data.materials.append(mat)
@@ -308,9 +320,7 @@ def set_baked_mat(context, ob, clip, canvas, movietype):
 
 
 
-
-
-
+######## CORNER PIN CLASSES ############
 
 class VIEW3D_OT_track_hooker(bpy.types.Operator):
     bl_idname = "clip.track_hooker"
@@ -353,8 +363,8 @@ class VIEW3D_OT_track_hooker(bpy.types.Operator):
         #finally create the hooks 
         hook_em_up(hooks, ob)
 
-
         return {'FINISHED'}
+
 
 
 class CLIP_PT_corner_hooker(bpy.types.Panel):
@@ -372,7 +382,7 @@ class CLIP_PT_corner_hooker(bpy.types.Panel):
 
 
 
-################ CLASSES ##########################
+################ TEXTURE PROJECT CLASSES ##########################
 
 class VIEW3D_texture_extraction_setup(bpy.types.Operator):
     bl_idname="object.texture_extraction_setup"
@@ -403,7 +413,6 @@ class VIEW3D_texture_extraction_setup(bpy.types.Operator):
         context.space_data.show_textured_solid = True
         
         return{"FINISHED"}
-
 
 
 
@@ -444,6 +453,7 @@ class VIEW3D_cleanplate_painter_setup(bpy.types.Operator):
         return {'FINISHED'}
 
 
+
 class VIEW3D_cleanplate_creator(bpy.types.Panel):
     bl_idname = "object.cleanplate_creator_setup"
     bl_label = "Cleanplate Creator" 
@@ -457,8 +467,6 @@ class VIEW3D_cleanplate_creator(bpy.types.Panel):
         col = layout.column(align=True)
         col.operator("object.texture_extraction_setup")
         col.operator("object.cleanplate_painter_setup")
-
-
 
 
 
