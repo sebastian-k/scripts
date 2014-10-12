@@ -86,11 +86,11 @@ def register():
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name='3D View', space_type='VIEW_3D')
 
-    kmi = km.keymap_items.new('scene.cycle_localview', 'L', 'PRESS', alt=True)
-    kmi.properties.direction = -1
-
-    kmi = km.keymap_items.new('scene.cycle_localview', 'L', 'PRESS', shift=True, alt=True)
+    kmi = km.keymap_items.new('scene.cycle_localview', 'UP_ARROW', 'PRESS', alt=True)
     kmi.properties.direction = 1
+
+    kmi = km.keymap_items.new('scene.cycle_localview', 'DOWN_ARROW', 'PRESS', alt=True)
+    kmi.properties.direction = -1
 
 
 def unregister():
