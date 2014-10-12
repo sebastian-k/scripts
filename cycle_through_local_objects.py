@@ -13,7 +13,6 @@ bl_info = {
 
 
 
-
 import bpy
 
 def view_local(context, ob):
@@ -79,7 +78,6 @@ class VIEW3D_cycle_localview(bpy.types.Operator):
 
 
 
-
 ########## REGISTER ############
 
 def register():
@@ -89,10 +87,10 @@ def register():
     km = wm.keyconfigs.addon.keymaps.new(name='3D View', space_type='VIEW_3D')
 
     kmi = km.keymap_items.new('scene.cycle_localview', 'L', 'PRESS', alt=True)
-    kmi.properties.direction = 1
+    kmi.properties.direction = -1
 
     kmi = km.keymap_items.new('scene.cycle_localview', 'L', 'PRESS', shift=True, alt=True)
-    kmi.properties.direction = -1
+    kmi.properties.direction = 1
 
 
 def unregister():
