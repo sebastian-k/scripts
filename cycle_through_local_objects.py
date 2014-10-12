@@ -38,14 +38,19 @@ def iterate(operator, context):
 
     # filter out meshes
     meshes = []
-    for ob in bpy.data.objects:
-        if ob.type == "MESH":
+    for ob in bpy.context.scene.objects:
+        if ob.type == "MESH" and ob.hide==False:
             meshes.append(ob)
 
     # iterate over objects
+
+
+    
+
     for i, o in enumerate(meshes):
         if o == bpy.context.active_object:
             currentobject = o
+           
             nextobject = meshes[(i + direction) % len(meshes)]
             context.scene.objects.active = nextobject
 
