@@ -43,10 +43,6 @@ def iterate(operator, context):
             meshes.append(ob)
 
     # iterate over objects
-
-
-    
-
     for i, o in enumerate(meshes):
         if o == bpy.context.active_object:
             currentobject = o
@@ -70,6 +66,8 @@ class VIEW3D_cycle_localview(bpy.types.Operator):
         return space.type == 'VIEW_3D'
 
     def execute(self, context):
+        if not context.object.mode=="OBJECT":
+            bpy.ops.object.mode_set(mode="OBJECT")
         # if nothing is active localview doesn't make sense
         if not bpy.context.active_object:
             bpy.ops.view3d.localview()
