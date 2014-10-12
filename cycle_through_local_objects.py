@@ -21,8 +21,8 @@ def view_local(context, ob):
     # if we are already in localview we should leave it first to select another object
     if context.space_data.local_view:
         bpy.ops.view3d.localview()
-    
-    # make sure nothing is select and then pick next object
+
+    # make sure nothing is selected and then pick next object
     bpy.ops.object.select_all(action='DESELECT')
     ob.select = True
 
@@ -35,13 +35,13 @@ def view_local(context, ob):
 def iterate(operator, context):
     # get the cycle direction from the property that got parsed to the class
     direction = operator.direction
-    
+
     # filter out meshes
     meshes = []
     for ob in bpy.data.objects:
         if ob.type == "MESH":
             meshes.append(ob)
-    
+
     # iterate over objects
     for i, o in enumerate(meshes):
         if o == bpy.context.active_object:
@@ -56,7 +56,7 @@ def iterate(operator, context):
 
 class VIEW3D_cycle_localview(bpy.types.Operator):
     bl_idname = "scene.cycle_localview"
-    bl_label = "view local"
+    bl_label = "View Local"
     direction = bpy.props.IntProperty()
 
     @classmethod
@@ -87,7 +87,7 @@ def register():
 
     kmi = km.keymap_items.new('scene.cycle_localview', 'L', 'PRESS', alt=True)
     kmi.properties.direction = 1
-    
+
     kmi = km.keymap_items.new('scene.cycle_localview', 'L', 'PRESS', shift=True, alt=True)
     kmi.properties.direction = -1
 
