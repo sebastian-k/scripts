@@ -1,7 +1,7 @@
 bl_info = {
 "name": "Tracking Pies",
 "author": "Sebastian Koenig",
-"version": (1, 0),
+"version": (1, 1),
 "blender": (2, 7, 2),
 "location": "Clip Editor > Masking Pies",
 "description": "Pie Controls for Tracking",
@@ -84,10 +84,6 @@ def filter_values(threshold, context):
             track_velocity = marker_velocity(context, track, frame)
             distance = (average_velocity - track_velocity).magnitude
 
-            # TODO: find a way to exclude foreground markers. something like:
-            # if markers are part of the tracks_to_clean list but move very similarly,
-            # they are no spikes, but fast moving foreground markers and should be excluded.
-
             if distance > threshold and not track in tracks_to_clean:
                 log('To clean:' , track.name,
                     ', average velocity:', average_velocity.magnitude,
@@ -97,12 +93,6 @@ def filter_values(threshold, context):
     for track in tracks_to_clean:
         track.select = True
     return len(tracks_to_clean)
-
-
-
-
-
-
 
 
 ############# CLASSES #############
@@ -369,8 +359,6 @@ class CLIP_PIE_clipsetup_pie(Menu):
 
 
 
-
-
 class CLIP_PIE_solver_pie(Menu):
     # Operators to solve the scene
     bl_label = "Solving"
@@ -405,12 +393,10 @@ class CLIP_PIE_solver_pie(Menu):
         
 
 
-
 class CLIP_PIE_reconstruction_pie(Menu):
     # label is displayed at the center of the pie menu.
     bl_label = "Reconstruction"
     bl_idname = "clip.reconstruction_pie"
-
 
     def draw(self, context):
 
@@ -511,8 +497,6 @@ def register():
     kmi = km.keymap_items.new('wm.call_menu_pie', 'A', 'PRESS', oskey=True).properties.name = "clip.timecontrol_pie"
 
 
-
-
 def unregister():
     bpy.utils.unregister_class(CLIP_OT_set_active_clip)
     bpy.utils.unregister_class(CLIP_OT_filter_tracks)
@@ -530,11 +514,5 @@ def unregister():
     bpy.utils.unregister_class(CLIP_PT_filter_tracks)
 
 
-
-
-
-
 if __name__ == "__main__":
     register()
-
-
