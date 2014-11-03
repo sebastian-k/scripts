@@ -67,12 +67,14 @@ class VIEW3D_PIE_display(Menu):
 
         pie = layout.menu_pie()
 
-        pie.prop(space, "show_textured_solid", icon="CURSOR")
-        pie.prop(space, "show_only_render", icon="CURSOR")
-        pie.prop(space, "use_matcap", icon="CURSOR")
-        pie.operator("object.show_all_wires")
-        pie.operator("view3d.localview")
-        pie.operator("view3d.view_selected")
+        pie.prop(space, "show_textured_solid", icon="TEXTURE")
+        pie.prop(space, "show_only_render", icon="SMOOTH")
+        pie.prop(space, "use_matcap", icon="MATCAP_06")
+        pie.operator("object.show_all_wires", icon="WIRE")
+        pie.operator("view3d.view_all", text="Center Cursor", icon="CURSOR").center=True
+        pie.operator("view3d.view_selected", icon="ZOOM_SELECTED")
+        pie.operator("view3d.view_all", icon="RESTRICT_VIEW_OFF").center=False
+        pie.operator("view3d.localview", icon="VIEWZOOM")
 
 
 
@@ -87,7 +89,7 @@ def register():
     wm = bpy.context.window_manager
 
     km = wm.keyconfigs.addon.keymaps.new(name='3D View', space_type='VIEW_3D')
-    kmi = km.keymap_items.new('wm.call_menu_pie', 'Y', 'PRESS', shift=True).properties.name = "object.display_pie"
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'C', 'PRESS', shift=True).properties.name = "object.display_pie"
 
   
 
