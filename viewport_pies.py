@@ -17,7 +17,7 @@ from bpy.types import Menu
 
 
 class VIEW3D_OT_show_all_wires(bpy.types.Operator):
-    """Tooltip"""
+    """Show all wires for selected objects"""
     bl_idname = "object.show_all_wires"
     bl_label = "Show all wires"
  
@@ -56,7 +56,7 @@ class VIEW3D_OT_show_all_wires(bpy.types.Operator):
 
 class VIEW3D_PIE_display(Menu):
     # label is displayed at the center of the pie menu.
-    bl_label = "Origin"
+    bl_label = "Viewport Pies"
     bl_idname = "object.display_pie"
 
     def draw(self, context):
