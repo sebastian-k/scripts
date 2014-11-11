@@ -1,3 +1,13 @@
+bl_info = {
+    "name": "Viewer Targer",
+    "author": "Sebastian Koenig",
+    "version": (0, 1),
+    "blender": (2, 7, 2),
+    "description": "Doubleclick to set the viewer node focus to the mouse position",
+    "category": "Node"}
+
+
+
 import bpy
 
 class NODE_OT_Viewer_Focus(bpy.types.Operator):
