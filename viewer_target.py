@@ -1,5 +1,5 @@
 bl_info = {
-    "name": "Viewer Targer",
+    "name": "Viewer Target",
     "author": "Sebastian Koenig",
     "version": (0, 1),
     "blender": (2, 7, 2),
