@@ -150,13 +150,20 @@ class CLIP_OT_filter_tracks(bpy.types.Operator):
     bl_idname="clip.filter_tracks"
     bl_options = {'UNDO', 'REGISTER'}
 
+    track_threshold = bpy.props.FloatProperty \
+      (
+        name = "Track Threshold",
+        description = "Filter Threshold",
+        default = 5.0
+      )
+
     @classmethod
     def poll(cls, context):
         space = context.space_data
         return (space.type == 'CLIP_EDITOR') and space.clip
 
     def execute(self, context):
-        num_tracks = filter_values(bpy.context.scene.track_threshold, context)
+        num_tracks = filter_values(self.track_threshold, context)
         self.report({"INFO"}, "Identified %d problematic tracks" % num_tracks)
         return {'FINISHED'}
 
@@ -239,10 +246,10 @@ class CLIP_PIE_display_pie(Menu):
         layout = self.layout
         pie = layout.menu_pie()
 
-        pie.prop(sc, "show_names", text="Show Track Info", icon="WORDWRAP_ON")
-        pie.prop(sc, "show_disabled", text="Show Disabled Tracks", icon="VISIBLE_IPO_ON")
-        pie.prop(sc, "show_marker_search", text="Display Search Area", icon="VIEWZOOM")
-        pie.prop(sc, "show_marker_pattern", text="Display Pattern Area", icon="BORDERMOVE")
+        pie.prop(space, "show_names", text="Show Track Info", icon="WORDWRAP_ON")
+        pie.prop(space, "show_disabled", text="Show Disabled Tracks", icon="VISIBLE_IPO_ON")
+        pie.prop(space, "show_marker_search", text="Display Search Area", icon="VIEWZOOM")
+        pie.prop(space, "show_marker_pattern", text="Display Pattern Area", icon="BORDERMOVE")
 
 
 
@@ -336,13 +343,13 @@ class CLIP_PIE_clipsetup_pie(Menu):
         pie.operator("clip.reload", text="Reload Footage", icon="FILE_REFRESH")
         pie.operator("clip.prefetch", text="Prefetch Footage", icon="LOOP_FORWARDS")
 
-        pie.prop(sc, "use_mute_footage", text="Mute Footage", icon="MUTE_IPO_ON")
+        pie.prop(space, "use_mute_footage", text="Mute Footage", icon="MUTE_IPO_ON")
         if space.clip_user.use_render_undistorted:
             pie.prop(space.clip_user, "use_render_undistorted", text="Render Undistorted (ON)", icon="CHECKBOX_HLT")
         else:
             pie.prop(space.clip_user, "use_render_undistorted", text="Render Undistorted (OFF)", icon="CHECKBOX_DEHLT")
 
-        pie.prop(sc, "lock_selection", text="Lock", icon="LOCKED")
+        pie.prop(space, "lock_selection", text="Lock", icon="LOCKED")
         pie.operator("wm.call_menu_pie", text="Marker Display", icon='PLUS').name = "CLIP_PIE_display_pie"
         pie.operator("wm.call_menu_pie", text="Proxy", icon='PLUS').name = "CLIP_PIE_proxy_pie"
         pie.operator("clip.set_active_clip", icon="CLIP")
@@ -462,7 +469,7 @@ def register():
     bpy.utils.register_class(CLIP_PIE_timecontrol_pie)
     bpy.utils.register_class(CLIP_PT_filter_tracks)
 
-    bpy.types.Scene.track_threshold = bpy.props.FloatProperty \
+    track_threshold = bpy.props.FloatProperty \
       (
         name = "Track Threshold",
         description = "Filter Threshold",
