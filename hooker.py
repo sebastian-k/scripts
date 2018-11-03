@@ -85,7 +85,7 @@ def create_object(context, name, hooks, cleanobject, cams):
 
 
 def hook_em_up(hooks, ob):
-    # create an yet unassigned hook modifier for each hook in the list
+    # create a yet unassigned hook modifier for each hook in the list
     modlist=[]
     for h in hooks:
         modname="Hook_" + h.name
@@ -117,6 +117,32 @@ def hooker_cam(context, cams):
     camera.rotation_euler=(1.570796251296997, -0.0, 0.0)
     camera.location = (0,-8,2.2)
 
+
+class VIEW3D_OT_make_mesh(bpy.types.Operator):
+    bl_idname = "clip.make_mesh"
+    bl_label = "Make Mesh"
+
+    @classmethod
+    def poll(cls, context):
+        space = context.space_data
+        return space.type == 'CLIP_EDITOR'
+
+    def execute(self, context):
+        bpy.ops.clip.bundles_to_mesh()
+        ob = bpy.data.objects["Tracks"]
+        bpy.context.scene.objects.active = ob
+        ob.select = True
+        bpy.ops.object.mode_set(mode="EDIT")
+        bpy.ops.mesh.select_all(action='SELECT')
+        bpy.ops.mesh.edge_face_add()
+        bpy.ops.object.mode_set(mode = 'OBJECT')
+        ob.name = "Trackermesh"
+
+
+
+
+
+        return {'FINISHED'}
 
 class VIEW3D_OT_track_hooker(bpy.types.Operator):
     bl_idname = "clip.track_hooker"
@@ -174,6 +200,8 @@ class CLIP_PT_corner_hooker(bpy.types.Panel):
 
         row = layout.row()
         row.operator("clip.track_hooker")
+        row.operator("clip.make_mesh")
+
 
 
 
@@ -182,6 +210,7 @@ class CLIP_PT_corner_hooker(bpy.types.Panel):
 def register():
     bpy.utils.register_class(VIEW3D_OT_track_hooker)
     bpy.utils.register_class(CLIP_PT_corner_hooker)
+    bpy.utils.register_class(VIEW3D_OT_make_mesh)
 
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name='Clip', space_type='CLIP_EDITOR')
@@ -193,6 +222,7 @@ def unregister():
 
     bpy.utils.unregister_class(VIEW3D_OT_track_hooker)
     bpy.utils.unregister_class(CLIP_PT_corner_hooker)
+    bpy.utils.unregister_class(VIEW3D_OT_make_mesh)
 
 if __name__ == "__main__":
     register()

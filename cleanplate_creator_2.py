@@ -18,7 +18,6 @@ import bpy
 def get_track_empties(context, tracks):
     # the selected empties are assumed to be the linked tracks
     # these ones will be the parents
-
     for e in context.selected_objects:
         if e.type == "EMPTY":
             tracks.append(e)
@@ -28,30 +27,23 @@ def get_track_empties(context, tracks):
 
 def create_hook_empties(context, tracks, hooks):
     # create the actual hooks at the same position as the tracks
-
-    for t in tracks:
+    for track in tracks:
         # create a new empty, assign name and location
-        h = bpy.data.objects.new("CTRL_" + t.name, None)
-        h.location = t.matrix_world.to_translation()
-        h.empty_draw_size = 0.015
-        h.empty_draw_type = "CUBE"
-
+        hook = bpy.data.objects.new("CTRL_" + track.name, None)
+        hook.location = track.matrix_world.to_translation()
+        hook.empty_draw_size = 0.015
+        hook.empty_draw_type = "CUBE"
         # link it to the scene
-        bpy.context.scene.objects.link(h)
-
+        bpy.context.scene.objects.link(hook)
         # add the new empty to the list of parents
-        hooks.append(h)
-
+        hooks.append(hook)
         # make the hook empty a child of the parent
         bpy.ops.object.select_all(action='DESELECT')
-        t.select = True
-        h.select = True
-        bpy.context.scene.objects.active = t
+        track.select = True
+        hook.select = True
+        bpy.context.scene.objects.active = track
         bpy.ops.object.parent_set()
-  
     bpy.ops.object.select_all(action='DESELECT')
-
-
 
 def get_location(hooks):
     coords=[]
@@ -59,28 +51,21 @@ def get_location(hooks):
         coords.append(h.location * h.matrix_world)
     return coords
 
-
-
 def create_canvas_object(context, name, hooks, cleanobject, cams):
     from bpy_extras.io_utils import unpack_list
-
     # get all locations of the hooks in the list
     coords = get_location(hooks)
-
     # create the vertices of the cleanplate mesh
     me = bpy.data.meshes.new(name)
     me.vertices.add(len(coords))
     me.vertices.foreach_set("co", unpack_list(coords))
-
     # create the object which is using the mesh
     ob = bpy.data.objects.new(name, me)
     ob.location = (0,0,0)
-
     # link it to the scene and make it active
     bpy.context.scene.objects.link(ob)
     bpy.context.scene.objects.active=ob
     ob.layers = [True] + [False] * 19
-
     # go into edit mode, select all vertices and create the face
     if not context.object.mode=="EDIT":
         bpy.ops.object.mode_set(mode="EDIT")
@@ -97,17 +82,14 @@ def create_canvas_object(context, name, hooks, cleanobject, cams):
     bpy.ops.object.parent_set()
     camera.select = False
 
-
-
 def hook_em_up(hooks, ob):
     # create an yet unassigned hook modifier for each hook in the list
     modlist=[]
-    for h in hooks:
-        modname="Hook_" + h.name
+    for hook in hooks:
+        modname = "Hook_" + hook.name
         modlist.append(modname)
         mod = ob.modifiers.new(name=modname, type="HOOK")
-        mod.object=h
-
+        mod.object = hook
     # now for each vertex go to edit mode, select the vertex and assign the modifier
     verts = ob.data.vertices
     for i in range(len(verts)):
@@ -123,28 +105,21 @@ def hook_em_up(hooks, ob):
     bpy.ops.object.mode_set(mode = 'OBJECT')
 
 
-
 def hooker_cam(context, cams):
-
     for ob in bpy.data.objects:
-        if ob.type=="CAMERA":
+        if ob.type == "CAMERA":
             cams.append(ob)
     camera = cams[0]
     camera.rotation_euler=(1.570796251296997, -0.0, 0.0)
     camera.location = (0,-8,2.2)
 
-
-
 def setup_scene(context):
     scene = context.scene
     scene.active_clip = context.space_data.clip
 
-
-
 ####### TEXTURE PROJECTION FUNCTIONS ###########
 
 def prepare_mesh(context, ob, size, canvas, clip):
-
     me = ob.data
     # see if object is already prepared.das
     if not "is_prepared" in ob:
@@ -156,9 +131,9 @@ def prepare_mesh(context, ob, size, canvas, clip):
         # make sure mesh is dense enough for projection
         if len(me.vertices)<64:
             sub = ob.modifiers.new(name="Subsurf", type="SUBSURF")
-            sub.subdivision_type="SIMPLE"
-            sub.levels=4
-            sub.render_levels=4
+            sub.subdivision_type = "SIMPLE"
+            sub.levels = 4
+            sub.render_levels = 4
             bpy.context.object.modifiers["Subsurf"].subdivision_type = 'SIMPLE'
 
         # unwrap and go back to object mode
@@ -174,9 +149,9 @@ def prepare_mesh(context, ob, size, canvas, clip):
             me.uv_textures.new(name="projection")
 
         # put a canvas onto the mesh for bake and paint
-        for t in  me.uv_textures:
-            if t.active:
-                uvtex = t.data
+        for tex in me.uv_textures:
+            if tex.active:
+                uvtex = tex.data
                 for f in me.polygons:
                     #check that material had an image!
                     uvtex[f.index].image = canvas
@@ -187,11 +162,10 @@ def prepare_mesh(context, ob, size, canvas, clip):
         if not ob.modifiers.get("UVProject"):
             projector = ob.modifiers.new(name="UVProject", type="UV_PROJECT")
             projector.uv_layer = "projection"
-            projector.aspect_x=clip.size[0]
-            projector.aspect_y=clip.size[1]
+            projector.aspect_x = clip.size[0]
+            projector.aspect_y = clip.size[1]
             projector.projectors[0].object = bpy.data.objects["Camera"]
-            projector.uv_layer="projection"
-
+            projector.uv_layer = "projection"
 
 
 def change_viewport_background_for_painting(context, clip):

@@ -203,26 +203,32 @@ class VIEW3D_PIE_origin(Menu):
         pie.operator("view3d.snap_cursor_to_selected", icon="CURSOR")
 
         # set origin to selection in Edit Mode, set origin to cursor in Object mode
-        if context.object.mode == "EDIT":
-            pie.operator("object.origin_to_selected", icon="OUTLINER_OB_EMPTY")
-        else:
-            pie.operator("object.origin_set",icon="EMPTY_DATA", text="Origin to Cursor").type="ORIGIN_CURSOR"
+        if context.active_object:
+            if context.object.mode == "EDIT":
+                pie.operator("object.origin_to_selected", icon="OUTLINER_OB_EMPTY")
+            else:
+                pie.operator("object.origin_set",icon="EMPTY_DATA", text="Origin to Cursor").type="ORIGIN_CURSOR"
 
-        if context.object.mode == "OBJECT":
-            pie.operator("object.origin_set",icon="MESH_CUBE", text="Origin to Geometry").type="ORIGIN_GEOMETRY"
+            if context.object.mode == "OBJECT":
+                pie.operator("object.origin_set",icon="MESH_CUBE", text="Origin to Geometry").type="ORIGIN_GEOMETRY"
+            else:
+                pie.operator("object.origin_to_geometry", icon="MESH_CUBE")
         else:
-            pie.operator("object.origin_to_geometry", icon="MESH_CUBE")
+            pass
 
         pie.operator("view3d.snap_cursor_to_center", icon="CURSOR")
         pie.operator("wm.call_menu_pie", text="Element / Target", icon='PLUS').name = "VIEW3D_PIE_SnapTarget"
 
-        if context.object.mode == "EDIT":
-            if tool_settings.use_mesh_automerge:
-                pie.prop(tool_settings, "use_mesh_automerge", text="Automerge (ON)", icon='AUTOMERGE_ON')
+        if context.active_object:
+            if context.object.mode == "EDIT":
+                if tool_settings.use_mesh_automerge:
+                    pie.prop(tool_settings, "use_mesh_automerge", text="Automerge (ON)", icon='AUTOMERGE_ON')
+                else:
+                    pie.prop(tool_settings, "use_mesh_automerge", text="Automerge (OFF)", icon='AUTOMERGE_OFF')
             else:
-                pie.prop(tool_settings, "use_mesh_automerge", text="Automerge (OFF)", icon='AUTOMERGE_OFF')
+                pie.operator("object.setpivotindidual", icon="ROTATECOLLECTION")
         else:
-            pie.operator("object.setpivotindidual", icon="ROTATECOLLECTION")
+            passn
 
         pie.operator("scene.toggle_pivot", icon="ROTATECENTER")
 
@@ -251,6 +257,14 @@ def register():
     km = wm.keyconfigs.addon.keymaps.new(name = 'Mesh')
     kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS',shift=True).properties.name = "object.snapping_pie"
 
+    km = wm.keyconfigs.addon.keymaps.new(name = 'Curve')
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS',shift=True).properties.name = "object.snapping_pie"
+
+    km = wm.keyconfigs.addon.keymaps.new(name = 'Armature')
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS',shift=True).properties.name = "object.snapping_pie" 
+
+    km = wm.keyconfigs.addon.keymaps.new(name = 'Pose')
+    kmi = km.keymap_items.new('wm.call_menu_pie', 'S', 'PRESS',shift=True).properties.name = "object.snapping_pie"
 
 
 

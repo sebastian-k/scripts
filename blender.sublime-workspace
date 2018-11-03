@@ -1,0 +1,1169 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"obe",
+				"objects"
+			],
+			[
+				"next",
+				"nextobject"
+			],
+			[
+				"byp",
+				"bypass_node"
+			],
+			[
+				"bpy",
+				"bypass_node"
+			],
+			[
+				"s",
+				"switch"
+			],
+			[
+				"Node",
+				"NODE_node_switcher"
+			],
+			[
+				"node",
+				"node_switcher"
+			],
+			[
+				"clean",
+				"cleanobject"
+			],
+			[
+				"hoo",
+				"hooklist"
+			],
+			[
+				"hook",
+				"hook_em_up"
+			],
+			[
+				"subdi",
+				"subdivision_type"
+			],
+			[
+				"tex",
+				"texture_extraction_setup"
+			],
+			[
+				"is",
+				"is_prepared"
+			],
+			[
+				"set",
+				"set_arguments"
+			],
+			[
+				"de",
+				"define_dict"
+			],
+			[
+				"mater",
+				"material"
+			],
+			[
+				"maetri",
+				"material_slots"
+			],
+			[
+				"active",
+				"active_object"
+			],
+			[
+				"clea",
+				"cleaned_object"
+			],
+			[
+				"prep",
+				"prepare_mesh"
+			],
+			[
+				"con",
+				"context"
+			],
+			[
+				"matr",
+				"material"
+			],
+			[
+				"material",
+				"material_slots"
+			],
+			[
+				"proje",
+				"projection_tex"
+			],
+			[
+				"pro",
+				"proj_tex"
+			],
+			[
+				"uv",
+				"uv_textures"
+			],
+			[
+				"cl",
+				"cleanplate"
+			],
+			[
+				"te",
+				"texures"
+			],
+			[
+				"ma",
+				"materials"
+			],
+			[
+				"space",
+				"space_data"
+			],
+			[
+				"pa",
+				"paint_settings"
+			],
+			[
+				"imag",
+				"image_user"
+			],
+			[
+				"fra",
+				"frame_start"
+			],
+			[
+				"frame",
+				"frame_duration"
+			],
+			[
+				"Camera",
+				"CAMERA_DATA"
+			],
+			[
+				"op",
+				"operator"
+			],
+			[
+				"dis",
+				"distanceX"
+			],
+			[
+				"ave",
+				"averageVelocity"
+			],
+			[
+				"m",
+				"m_x"
+			],
+			[
+				"mark",
+				"marker_y"
+			],
+			[
+				"to",
+				"to_2d"
+			],
+			[
+				"av",
+				"averageVelocityVector"
+			],
+			[
+				"avera",
+				"averageVelocityVector"
+			],
+			[
+				"size",
+				"size_vector"
+			],
+			[
+				"sce",
+				"space_data"
+			],
+			[
+				"find",
+				"find_speed"
+			],
+			[
+				"sc",
+				"scene"
+			],
+			[
+				"filter",
+				"filter_tracks"
+			],
+			[
+				"tra",
+				"track_threshold"
+			],
+			[
+				"tr",
+				"track_threshold"
+			],
+			[
+				"track",
+				"track_threshold"
+			],
+			[
+				"sp",
+				"speed_dict_y"
+			],
+			[
+				"average_",
+				"average_speed_x"
+			],
+			[
+				"spe",
+				"speed_dict_y"
+			],
+			[
+				"speed",
+				"speedlist_y"
+			],
+			[
+				"a",
+				"average_speed_x"
+			],
+			[
+				"average",
+				"average_speed_x"
+			],
+			[
+				"ba",
+				"b_marker"
+			],
+			[
+				"marker",
+				"markerlist"
+			],
+			[
+				"aver",
+				"average_speed"
+			],
+			[
+				"in",
+				"index"
+			],
+			[
+				"fin",
+				"find_frame"
+			],
+			[
+				"fram",
+				"framerange"
+			],
+			[
+				"trakc",
+				"tracking"
+			],
+			[
+				"h",
+				"href	Attr"
+			],
+			[
+				"ou",
+				"outputs"
+			],
+			[
+				"my",
+				"my_node"
+			],
+			[
+				"act",
+				"active_node"
+			],
+			[
+				"add",
+				"add_mask"
+			],
+			[
+				"ALPHA",
+				"GL_ALPHA"
+			],
+			[
+				"ras",
+				"raster_opacity"
+			],
+			[
+				"mas",
+				"mask_opacity"
+			],
+			[
+				"mask",
+				"mask_info"
+			],
+			[
+				"blend",
+				"blend_enabled"
+			],
+			[
+				"for",
+				"format"
+			],
+			[
+				"over",
+				"overlay_mode"
+			],
+			[
+				"N",
+				"Node_MT_nodeabfrage"
+			],
+			[
+				"the",
+				"the_node"
+			],
+			[
+				"la",
+				"labelname"
+			],
+			[
+				"no",
+				"node_active"
+			],
+			[
+				"na",
+				"node_active"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"bl_",
+				"bl_idname"
+			],
+			[
+				"context",
+				"bpy.context	bpy.context"
+			],
+			[
+				"bp",
+				"bpy.context	bpy.context"
+			],
+			[
+				"opa",
+				"opakey1"
+			],
+			[
+				"Cli",
+				"CLIP_EDITOR"
+			],
+			[
+				"bake",
+				"bake_margin"
+			],
+			[
+				"pre",
+				"ob_prefix"
+			],
+			[
+				"ob",
+				"ob_prefix"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/sebastian/01_Blender/git/blender/release/scripts/startup/bl_ui/space_view3d.py",
+			"settings":
+			{
+				"buffer_size": 108610,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/sebastian/01_Blender/git/blender/release/scripts/addons/add_curve_extra_objects/add_curve_aceous_galore.py",
+			"settings":
+			{
+				"buffer_size": 38277,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/sebastian/01_Blender/git/blender/source/blender/editors/space_node/drawnode.c",
+			"settings":
+			{
+				"buffer_size": 111299,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"c",
+				"Set Syntax: C"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add Current File"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"commm",
+				"Set Syntax: Git Commit Message"
+			],
+			[
+				"omm",
+				"Git: Commit"
+			],
+			[
+				"git ad",
+				"Git: Add Current File"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"git c",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add Current File"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"git a",
+				"Git: Add Current File"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"git reset",
+				"Git: Reset (unstage) Current File"
+			],
+			[
+				"git re",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"fold",
+				"Code Folding: Fold Tag Attributes"
+			],
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"git st",
+				"Git: Status"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"comi",
+				"Git: Commit"
+			],
+			[
+				"log",
+				"Git: Log Current File"
+			],
+			[
+				"git log",
+				"Git: Log All"
+			],
+			[
+				"git ",
+				"Git: Commit"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"pacl",
+				"Package Control: Remove Package"
+			],
+			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"blender",
+				"Blender : Restart Module"
+			],
+			[
+				"syn",
+				"Set Syntax: HTML"
+			],
+			[
+				"ypth",
+				"Set Syntax: Python"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"indern",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"inden",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"packag",
+				"Package Control: Remove Package"
+			],
+			[
+				"packe",
+				"Package Control: Remove Package"
+			],
+			[
+				"packer",
+				"Package Control: Disable Package"
+			],
+			[
+				"br",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/sebastian/01_Blender/git/blender/doc/doxygen/Doxyfile",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/editors/space_node/drawnode.c",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/addons/space_view3d_math_vis/draw.py",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/makesdna/DNA_rigidbody_types.h",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/freestyle/intern/python/UnaryFunction0D/UnaryFunction0D_float/BPy_ReadCompleteViewMapPixelF0D.cpp",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/startup/bl_ui/space_filebrowser.py",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/editors/uvedit/uvedit_parametrizer.c",
+		"/Users/sebastian/01_Blender/git/blender/intern/cycles/util/util_param.h",
+		"/Users/sebastian/01_Blender/git/blender/extern/Eigen3/Eigen/UmfPackSupport",
+		"/Users/sebastian/01_Blender/git/blender/intern/utfconv/utfconv.c",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/modules/rna_keymap_ui.py",
+		"/Users/sebastian/01_Blender/git/blender/tests/python/bl_keymap_completeness.py",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/windowmanager/WM_keymap.h",
+		"/Users/sebastian/01_Blender/git/blender/intern/cycles/kernel/kernel_emission.h",
+		"/Users/sebastian/01_Blender/git/blender/intern/cycles/kernel/kernel.cl",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/modules/bpy_extras/keyconfig_utils.py",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/makesdna/DNA_dynamicpaint_types.h",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/freestyle/styles/sketchy_multiple_parameterization.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindPythonLibsUnix.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindPCRE.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindOpenJPEG.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindOpenImageIO.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindOpenGLES.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindOpenEXR.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindOpenColorIO.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindOpenCOLLADA.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindJeMalloc.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindJack.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindIcuLinux.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindGLEW.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/Modules/FindFftw3.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/example_scripts/make_quiet.sh",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/example_scripts/make_quicky.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/example_scripts/cmake_linux_install.sh",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/config/cycles_standalone.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/config/bpy_module.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/config/blender_lite.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/config/blender_headless.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/RpmBuild.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/project_source_info.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/project_info.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/packaging.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/macros.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_static_check_splint.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_static_check_sparse.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_static_check_smatch.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_static_check_cppcheck.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_static_check_clang_array.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_qtcreator_project.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_netbeans_project.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_consistency_check_config.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/cmake_consistency_check.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/clang_array_check.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/cmake/buildinfo.cmake",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-player-glibc211-x86_64.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-player-glibc211-i686.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-mac-x86_64.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-mac-i386.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-glibc211-x86_64.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-glibc211-i686.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-cuda-glibc211-x86_64.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/config/user-config-cuda-glibc211-i686.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/slave_test.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/slave_rsync.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/slave_pack.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/slave_compile.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/master_unpack.py",
+		"/Users/sebastian/01_Blender/git/blender/build_files/buildbot/master.cfg",
+		"/Users/sebastian/01_Blender/git/blender/build_files/build_environment/prepare_release_env.sh",
+		"/Users/sebastian/01_Blender/git/blender/build_files/build_environment/install_deps.sh",
+		"/Users/sebastian/01_Blender/git/blender/SConstruct",
+		"/Users/sebastian/01_Blender/git/blender/GNUmakefile",
+		"/Users/sebastian/01_Blender/git/blender/COPYING",
+		"/Users/sebastian/01_Blender/git/blender/CMakeLists.txt",
+		"/Users/sebastian/01_Blender/git/blender/.gitmodules",
+		"/Users/sebastian/01_Blender/git/blender/.gitignore",
+		"/Users/sebastian/01_Blender/git/blender/.arcconfig",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/freestyle/intern/python/UnaryFunction1D/UnaryFunction1D_double/BPy_GetCompleteViewMapDensityF1D.cpp",
+		"/Users/sebastian/01_Blender/git/blender/intern/cycles/kernel/shaders/node_uv_map.osl",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/modules/nodeitems_utils.py",
+		"/Users/sebastian/01_Blender/git/blender/extern/libredcode/NOTES",
+		"/Users/sebastian/01_Blender/git/blender/source/gameengine/SceneGraph/SG_ParentRelation.h",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/addons_contrib/online_mat_lib/material-library/bundled/cycles/wood/rough_walnut.bcm",
+		"/Users/sebastian/01_Blender/git/blender/release/datafiles/blender_icons16/icon16_arrow_leftright.dat",
+		"/Users/sebastian/01_Blender/git/blender/intern/audaspace/FX/AUD_ReverseReader.cpp",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/modules/animsys_refactor.py",
+		"/Users/sebastian/01_Blender/git/blender/extern/libredcode/AUTHOR",
+		"/Users/sebastian/01_Blender/git/blender/intern/ghost/intern/GHOST_ModifierKeys.cpp",
+		"/Users/sebastian/01_Blender/git/blender/intern/ghost/intern/GHOST_EventKey.h",
+		"/Users/sebastian/01_Blender/git/blender/extern/libmv/libmv/multiview/homography_test.cc",
+		"/Users/sebastian/01_Blender/git/blender/extern/Eigen3/Eigen/Householder",
+		"/Users/sebastian/01_Blender/git/blender/source/gameengine/Ketsji/KX_MaterialIpoController.cpp",
+		"/Users/sebastian/01_Blender/git/blender/intern/cycles/kernel/kernel_math.h",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/startup/bl_ui/space_clip.py",
+		"/Users/sebastian/01_Blender/git/blender/intern/elbeem/intern/solver_adap.cpp",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/addons_contrib/space_view3d_add_surround_cameras.py",
+		"/Users/sebastian/01_Blender/git/blender/source/gameengine/GameLogic/SCA_PropertyEventManager.cpp",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts.sublime-project",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/tracking_pies.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/filter_tracks.py",
+		"/Users/sebastian/Dropbox/Code/python/bpy/MovieClipEditor/opacity_keyer.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/texture_extractor.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/hooker.py",
+		"/tmp/blender.crash.txt",
+		"/Users/sebastian/Desktop/untitled.py",
+		"/Users/sebastian/01_Blender/git/blender/intern/cycles/util/util_importance.cpp",
+		"/Users/sebastian/Library/Application Support/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/auto_solve.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/editing_pies.py",
+		"/Users/sebastian/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/sebastian/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/sebastian/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/sebastian/Library/Application Support/Sublime Text 3/Packages/User/Side Bar.sublime-settings",
+		"/Users/sebastian/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/Side Bar.sublime-settings",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/clean_faulty_tracks2.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/clean_faulty_tracks.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/scripts/snapping_pies.py",
+		"/Users/sebastian/Dropbox/01_Blender/Dev/Tracker/clean_spikes.py",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/startup/bl_operators/clip.py",
+		"/Volumes/Data/01_Blender/blendertraining/Support/Johan_Wagner/library_script.py",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/editors/space_clip/space_clip.c",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/editors/mask/mask_ops.c",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/startup/bl_ui/space_view3d.py",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/makesrna/intern/rna_space.c",
+		"/Users/sebastian/01_Blender/git/blender/tests/python/rna_array.py",
+		"/Users/sebastian/01_Blender/git/blender/release/scripts/addons_contrib/render_notify.py",
+		"/Users/sebastian/01_Blender/git/blender/doc/blender_file_format/README",
+		"/Users/sebastian/01_Blender/git/blender/source/blender/editors/object/object_ops.c"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"blender/release/scripts/startup/bl_operators",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"connec",
+			"outline",
+			"wire",
+			"a",
+			"p",
+			"create_parent_empties",
+			"get_track_empties",
+			"get_hooks",
+			"parentlist",
+			"SPHERE",
+			"hooklist",
+			"get_empties",
+			"parent_empty",
+			"row",
+			"bgpic",
+			"x",
+			"  ",
+			"projection_mat",
+			"projection_tex",
+			"indent",
+			"cleanplate_setup",
+			"VIEW3D_cleanplate_setup",
+			"projection_mat",
+			"projection_tex",
+			"ob.data",
+			"Cleanplate",
+			"texures",
+			"name",
+			"set_cleanplate_material_internat",
+			"set_material",
+			"_getPlaneVertices",
+			"uv_layer",
+			"clip",
+			"origin_pie",
+			"set_origin_to_selected",
+			"CLIP_OT_set_origin_to_selected",
+			"set_center",
+			"context_set_prop",
+			"prop",
+			"operator",
+			"settings",
+			"SETTINGS",
+			"settings",
+			"Settings",
+			"context.space_data",
+			"size_vector",
+			"float",
+			"clip",
+			"row",
+			"trk",
+			"scn",
+			"tracklist",
+			"find_axis_speed",
+			"t.name",
+			"tracklist",
+			"track_list",
+			"slide_point",
+			"clip.frame_jump",
+			"setup_tracking",
+			"setp_tracking",
+			"mask",
+			"mask editing",
+			"operator_enum",
+			"snap",
+			"pivot_point",
+			"Searching",
+			"enum RNA",
+			"enum snap",
+			"snap",
+			"Snap",
+			"select_mode",
+			"enum",
+			"pivot_point",
+			"center points",
+			"OBJECT_OT_origin_set",
+			"pie",
+			"pie_mode_set",
+			"pie",
+			"Pie",
+			"pie",
+			"Pie",
+			"pie",
+			"object.pie_mode_set",
+			"manipulator pie",
+			"WM_OT_context_pie_enum",
+			"WM_OT_context_pie_enum in blender/release/scripts/startup/bl_operators",
+			"VIEW3D_PIE_manipulator_macro",
+			"pie manipulators",
+			"transform_manipulators",
+			"active",
+			"acive",
+			"cycles",
+			"shading",
+			"select_mask",
+			"my_node",
+			"double",
+			"node_add_mask",
+			"my_maskshape",
+			"node",
+			"mask",
+			"(1.0f, 1.0f, 1.0f)",
+			"1",
+			"buffer[inde",
+			"opacity",
+			"mask ",
+			"mask",
+			"stabmat",
+			"bConte",
+			"image",
+			"overlay_mode",
+			"mask",
+			"float",
+			"maskspa",
+			"diffuse_intensity",
+			"mask",
+			"MaskSpaceInfo ",
+			"ColorManagedViewSettings",
+			"resolution_percentage",
+			"slider",
+			"MASK_OVERLAY_ALPHACHANNEL",
+			"color_ramp",
+			"remote_control_settings",
+			"BOOKMARKSTORE",
+			"propname",
+			"NodeRemoteControlSettings",
+			"CustomMenu",
+			"NUMPAD_1",
+			"0.2"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/sebastian/01_Blender/git/blender/release/scripts/startup/bl_ui/space_view3d.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 108610,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 54826.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/sebastian/01_Blender/git/blender/release/scripts/addons/add_curve_extra_objects/add_curve_aceous_galore.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 38277,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 18229.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/sebastian/01_Blender/git/blender/source/blender/editors/space_node/drawnode.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 111299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2966.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 100.0
+	},
+	"project": "blender.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"draw",
+				"source/blender/editors/space_node/drawnode.c"
+			],
+			[
+				"drawnode",
+				"source/blender/editors/space_node/drawnode.c"
+			],
+			[
+				"uparrw",
+				"source/blender/freestyle/intern/python/UnaryFunction0D/UnaryFunction0D_float/BPy_ReadCompleteViewMapPixelF0D.cpp"
+			],
+			[
+				"keymapit",
+				"source/blender/makesdna/DNA_dynamicpaint_types.h"
+			],
+			[
+				"keymap",
+				"source/blender/windowmanager/WM_keymap.h"
+			],
+			[
+				"keyconfi",
+				"release/scripts/modules/bpy_extras/keyconfig_utils.py"
+			],
+			[
+				"keympa",
+				"tests/python/bl_keymap_completeness.py"
+			],
+			[
+				"spaceview",
+				"release/scripts/startup/bl_ui/space_view3d.py"
+			],
+			[
+				"pie",
+				"source/gameengine/Physics/common/PHY_IPhysicsEnvironment.h"
+			],
+			[
+				"masdr",
+				"source/blender/editors/mask/mask_draw.c"
+			],
+			[
+				"mask",
+				"source/blender/blenkernel/intern/mask.c"
+			],
+			[
+				"mask_dr",
+				"source/blender/editors/mask/mask_draw.c"
+			],
+			[
+				"ed_ma",
+				"source/blender/editors/include/ED_mask.h"
+			],
+			[
+				"space_imaeg",
+				"source/blender/editors/space_image/space_image.c"
+			],
+			[
+				"space_clip.",
+				"source/blender/editors/space_clip/space_clip.c"
+			],
+			[
+				"space",
+				"release/scripts/startup/bl_ui/space_clip.py"
+			],
+			[
+				"mask.",
+				"source/blender/editors/include/ED_mask.h"
+			],
+			[
+				"propmater",
+				"release/scripts/startup/bl_ui/properties_material.py"
+			],
+			[
+				"dna",
+				"source/blender/makesdna/DNA_color_types.h"
+			],
+			[
+				"properrender",
+				"release/scripts/startup/bl_ui/properties_render.py"
+			],
+			[
+				"mask_draw",
+				"source/blender/editors/mask/mask_draw.c"
+			],
+			[
+				"propmask",
+				"release/scripts/startup/bl_ui/properties_mask_common.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 413.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
